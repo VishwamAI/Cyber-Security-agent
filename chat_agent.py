@@ -1,5 +1,9 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+import os
+
+# Set Hugging Face API token
+os.environ["HUGGINGFACE_API_TOKEN"] = "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"
 
 # Load pre-trained model and tokenizer
 def load_model(model_name="microsoft/DialoGPT-medium"):
