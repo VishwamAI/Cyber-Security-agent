@@ -14,8 +14,6 @@ def load_model(model_name="microsoft/DialoGPT-medium"):
     model = AutoModelForCausalLM.from_pretrained(model_name)
     return tokenizer, model
 
-tokenizer, model = load_model()
-
 # Function to generate a response
 def generate_response(input_text, max_length=1000):
     # Tokenize input text
@@ -31,6 +29,11 @@ def generate_response(input_text, max_length=1000):
 
 # Interactive chat loop
 if __name__ == "__main__":
+    model_name = input("Enter the model name (default: microsoft/DialoGPT-medium): ")
+    if not model_name:
+        model_name = "microsoft/DialoGPT-medium"
+    tokenizer, model = load_model(model_name)
+
     print("Chat with the model (type 'exit' to stop):")
     while True:
         user_input = input("User: ")
