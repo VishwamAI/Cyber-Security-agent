@@ -25,6 +25,7 @@ const Chat = () => {
       }
 
       const data = await res.json();
+      console.log('Response from backend:', data);
       setResponse(data.response);
     } catch (error) {
       console.error('Error:', error);
