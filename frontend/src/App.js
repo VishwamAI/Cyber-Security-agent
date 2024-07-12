@@ -3,9 +3,12 @@ import { ChakraProvider, Box, Button, VStack } from '@chakra-ui/react';
 import Chat from './components/Chat';
 import CodeEditor from './components/CodeEditor';
 import Browser from './components/Browser';
+import AgentState from './types/AgentState';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('chat');
+  const [curAgentState, setCurAgentState] = useState(AgentState.IDLE);
+  const [messages, setMessages] = useState([]);
 
   return (
     <ChakraProvider>
@@ -21,7 +24,7 @@ const App = () => {
             Browser
           </Button>
         </VStack>
-        {activeTab === 'chat' && <Chat />}
+        {activeTab === 'chat' && <Chat messages={messages} curAgentState={curAgentState} />}
         {activeTab === 'codeEditor' && <CodeEditor />}
         {activeTab === 'browser' && <Browser />}
       </Box>
