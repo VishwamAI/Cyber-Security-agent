@@ -4,11 +4,6 @@ import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import { Box, Button, VStack, Tooltip } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import AgentState from "../types/AgentState";
-import toast from "../utils/toast";
-import ConfirmIcon from "../assets/confirm";
-import RejectIcon from "../assets/reject";
-import { changeAgentState } from "../services/agentStateService";
 
 const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
   const [isCopy, setIsCopy] = useState(false);
@@ -23,13 +18,9 @@ const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
         setTimeout(() => {
           setIsCopy(false);
         }, 1500);
-        toast.info(t("CHAT_INTERFACE$CHAT_MESSAGE_COPIED"));
       })
       .catch(() => {
-        toast.error(
-          "copy-error",
-          t("CHAT_INTERFACE$CHAT_MESSAGE_COPY_FAILED")
-        );
+        console.error("Failed to copy message content to clipboard");
       });
   };
 
@@ -73,10 +64,10 @@ const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
                 p={1}
                 _hover={{ bg: "gray.800" }}
                 onClick={() => {
-                  changeAgentState(AgentState.USER_CONFIRMED);
+                  console.log("User confirmed");
                 }}
               >
-                <ConfirmIcon />
+                Confirm
               </Button>
             </Tooltip>
             <Tooltip label={t("CHAT_INTERFACE$USER_REJECTED")} closeDelay={100}>
@@ -86,10 +77,10 @@ const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
                 p={1}
                 _hover={{ bg: "gray.800" }}
                 onClick={() => {
-                  changeAgentState(AgentState.USER_REJECTED);
+                  console.log("User rejected");
                 }}
               >
-                <RejectIcon />
+                Reject
               </Button>
             </Tooltip>
           </VStack>
