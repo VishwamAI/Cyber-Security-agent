@@ -2,8 +2,11 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
 
-# Set Hugging Face API token
-os.environ["HUGGINGFACE_API_TOKEN"] = "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"
+# Retrieve Hugging Face API token from environment variable
+huggingface_api_token = os.getenv("HUGGINGFACE_API_TOKEN")
+
+if huggingface_api_token is None:
+    raise ValueError("Hugging Face API token not found. Please set the HUGGINGFACE_API_TOKEN environment variable.")
 
 # Load pre-trained model and tokenizer
 def load_model(model_name="microsoft/DialoGPT-medium"):
