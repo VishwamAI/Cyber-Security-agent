@@ -1,36 +1,19 @@
 import React, { useState } from "react";
 import Markdown from "react-markdown";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
-import { twMerge } from "tailwind-merge";
+import { Box, Button, VStack, Tooltip } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import { Tooltip } from "@nextui-org/react";
 import AgentState from "#/types/AgentState";
 import { code } from "../markdown/code";
 import toast from "#/utils/toast";
-import { I18nKey } from "#/i18n/declaration";
 import ConfirmIcon from "#/assets/confirm";
 import RejectIcon from "#/assets/reject";
 import { changeAgentState } from "#/services/agentStateService";
 
-interface MessageProps {
-  message: Message;
-  isLastMessage?: boolean;
-  awaitingUserConfirmation?: boolean;
-}
-
-function ChatMessage({
-  message,
-  isLastMessage,
-  awaitingUserConfirmation,
-}: MessageProps) {
+const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
   const [isCopy, setIsCopy] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-
-  const className = twMerge(
-    "markdown-body",
-    "p-3 text-white max-w-[90%] overflow-y-auto rounded-lg relative",
-    message.sender === "user" ? "bg-neutral-700 self-end" : "bg-neutral-500",
-  );
 
   const { t } = useTranslation();
   const copyToClipboard = () => {
@@ -41,75 +24,89 @@ function ChatMessage({
         setTimeout(() => {
           setIsCopy(false);
         }, 1500);
-        toast.info(t(I18nKey.CHAT_INTERFACE$CHAT_MESSAGE_COPIED));
+        toast.info(t("CHAT_INTERFACE$CHAT_MESSAGE_COPIED"));
       })
       .catch(() => {
         toast.error(
           "copy-error",
-          t(I18nKey.CHAT_INTERFACE$CHAT_MESSAGE_COPY_FAILED),
+          t("CHAT_INTERFACE$CHAT_MESSAGE_COPY_FAILED")
         );
       });
   };
 
   return (
-    <div
+    <Box
       data-testid="message"
-      className={className}
+      p={3}
+      bg={message.sender === "user" ? "gray.700" : "gray.500"}
+      color="white"
+      maxW="90%"
+      overflowY="auto"
+      borderRadius="lg"
+      position="relative"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       {isHovering && (
-        <button
+        <Button
           onClick={copyToClipboard}
-          className="absolute top-1 right-1 p-1 bg-neutral-600 rounded hover:bg-neutral-700"
-          aria-label={t(I18nKey.CHAT_INTERFACE$TOOLTIP_COPY_MESSAGE)}
-          type="button"
+          position="absolute"
+          top={1}
+          right={1}
+          p={1}
+          bg="gray.600"
+          borderRadius="full"
+          _hover={{ bg: "gray.700" }}
+          aria-label={t("CHAT_INTERFACE$TOOLTIP_COPY_MESSAGE")}
         >
           {isCopy ? <FaClipboardCheck /> : <FaClipboard />}
-        </button>
+        </Button>
       )}
       <Markdown components={{ code }}>{message.content}</Markdown>
-      {isLastMessage &&
-        message.sender === "assistant" &&
-        awaitingUserConfirmation && (
-          <div className="flex justify-between items-center pt-4">
-            <p>{t(I18nKey.CHAT_INTERFACE$USER_ASK_CONFIRMATION)}</p>
-            <div className="flex items-center gap-3">
-              <Tooltip
-                content={t(I18nKey.CHAT_INTERFACE$USER_CONFIRMED)}
-                closeDelay={100}
+      {isLastMessage && message.sender === "assistant" && awaitingUserConfirmation && (
+        <VStack spacing={4} pt={4}>
+          <Box>{t("CHAT_INTERFACE$USER_ASK_CONFIRMATION")}</Box>
+          <VStack spacing={3}>
+            <Tooltip label={t("CHAT_INTERFACE$USER_CONFIRMED")} closeDelay={100}>
+              <Button
+                bg="gray.700"
+                borderRadius="full"
+                p={1}
+                _hover={{ bg: "gray.800" }}
+                onClick={() => {
+                  changeAgentState(AgentState.USER_CONFIRMED);
+                }}
               >
-                <button
-                  type="button"
-                  aria-label="Confirm action"
-                  className="bg-neutral-700 rounded-full p-1 hover:bg-neutral-800"
-                  onClick={() => {
-                    changeAgentState(AgentState.USER_CONFIRMED);
-                  }}
-                >
-                  <ConfirmIcon />
-                </button>
-              </Tooltip>
-              <Tooltip
-                content={t(I18nKey.CHAT_INTERFACE$USER_REJECTED)}
-                closeDelay={100}
+                <ConfirmIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip label={t("CHAT_INTERFACE$USER_REJECTED")} closeDelay={100}>
+              <Button
+                bg="gray.700"
+                borderRadius="full"
+                p={1}
+                _hover={{ bg: "gray.800" }}
+                onClick={() => {
+                  changeAgentState(AgentState.USER_REJECTED);
+                }}
               >
-                <button
-                  type="button"
-                  aria-label="Reject action"
-                  className="bg-neutral-700 rounded-full p-1 hover:bg-neutral-800"
-                  onClick={() => {
-                    changeAgentState(AgentState.USER_REJECTED);
-                  }}
-                >
-                  <RejectIcon />
-                </button>
-              </Tooltip>
-            </div>
-          </div>
-        )}
-    </div>
+                <RejectIcon />
+              </Button>
+            </Tooltip>
+          </VStack>
+        </VStack>
+      )}
+    </Box>
   );
-}
+};
+
+ChatMessage.propTypes = {
+  message: PropTypes.shape({
+    sender: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
+  isLastMessage: PropTypes.bool,
+  awaitingUserConfirmation: PropTypes.bool,
+};
 
 export default ChatMessage;
