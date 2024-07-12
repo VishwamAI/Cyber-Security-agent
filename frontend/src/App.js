@@ -10,6 +10,11 @@ const App = () => {
   const [curAgentState, setCurAgentState] = useState(AgentState.IDLE);
   const [messages, setMessages] = useState([]);
 
+  const handleSendMessage = (message) => {
+    setMessages([...messages, { sender: 'user', text: message }]);
+    // Here you can add logic to handle the message, e.g., send it to the backend
+  };
+
   return (
     <ChakraProvider>
       <Box p={4}>
@@ -24,7 +29,7 @@ const App = () => {
             Browser
           </Button>
         </VStack>
-        {activeTab === 'chat' && <Chat messages={messages} curAgentState={curAgentState} />}
+        {activeTab === 'chat' && <Chat messages={messages} curAgentState={curAgentState} onSendMessage={handleSendMessage} />}
         {activeTab === 'codeEditor' && <CodeEditor />}
         {activeTab === 'browser' && <Browser />}
       </Box>
