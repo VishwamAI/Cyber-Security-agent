@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChakraProvider, Box, Flex, Heading, Text, Link, Input, Button, VStack } from '@chakra-ui/react';
+import { ChakraProvider, Box, Flex, Heading, Text, Input, Button, VStack } from '@chakra-ui/react';
 
 function App() {
   const [userInput, setUserInput] = useState('');
@@ -60,9 +60,7 @@ function App() {
           </VStack>
         </Box>
         <Box as="footer" bg="teal.500" color="white" py={4} textAlign="center">
-          <Link href="https://reactjs.org" isExternal>
-            Learn React
-          </Link>
+          {/* Footer content can be added here */}
         </Box>
       </Flex>
     </ChakraProvider>
