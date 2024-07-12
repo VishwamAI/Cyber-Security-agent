@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, VStack, Text } from '@chakra-ui/react';
 import ChatMessage from './ChatMessage';
+import ChatInput from './ChatInput';
 import AgentState from '../types/AgentState';
 
-const Chat = ({ messages, curAgentState }) => {
+const Chat = ({ messages, curAgentState, onSendMessage }) => {
   return (
     <VStack spacing={4}>
       <Text fontSize="xl" textAlign="center">
@@ -21,6 +22,7 @@ const Chat = ({ messages, curAgentState }) => {
           />
         ))}
       </Box>
+      <ChatInput onSendMessage={onSendMessage} />
     </VStack>
   );
 };
