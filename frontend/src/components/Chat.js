@@ -44,7 +44,10 @@ const Chat = () => {
         value={userInput}
         onChange={handleInputChange}
       />
-      <Button colorScheme="teal" onClick={handleSubmit}>
+      <Button colorScheme="teal" onClick={() => {
+        console.log('Send button clicked');
+        handleSubmit();
+      }}>
         Send
       </Button>
       {response && (
