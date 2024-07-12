@@ -4,12 +4,11 @@ import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import { Box, Button, VStack, Tooltip } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
-import AgentState from "#/types/AgentState";
-import { code } from "../markdown/code";
-import toast from "#/utils/toast";
-import ConfirmIcon from "#/assets/confirm";
-import RejectIcon from "#/assets/reject";
-import { changeAgentState } from "#/services/agentStateService";
+import AgentState from "../types/AgentState";
+import toast from "../utils/toast";
+import ConfirmIcon from "../assets/confirm";
+import RejectIcon from "../assets/reject";
+import { changeAgentState } from "../services/agentStateService";
 
 const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
   const [isCopy, setIsCopy] = useState(false);
@@ -62,7 +61,7 @@ const ChatMessage = ({ message, isLastMessage, awaitingUserConfirmation }) => {
           {isCopy ? <FaClipboardCheck /> : <FaClipboard />}
         </Button>
       )}
-      <Markdown components={{ code }}>{message.content}</Markdown>
+      <Markdown>{message.content}</Markdown>
       {isLastMessage && message.sender === "assistant" && awaitingUserConfirmation && (
         <VStack spacing={4} pt={4}>
           <Box>{t("CHAT_INTERFACE$USER_ASK_CONFIRMATION")}</Box>
