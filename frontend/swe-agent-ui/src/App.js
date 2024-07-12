@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { ChakraProvider, Box, Flex, Heading, Text, Input, Button, VStack } from '@chakra-ui/react';
+import Chat from './components/chat/Chat';
 
 function App() {
   const [userInput, setUserInput] = useState('');
   const [response, setResponse] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [curAgentState, setCurAgentState] = useState(null);
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
@@ -25,6 +28,7 @@ function App() {
 
       const data = await res.json();
       setResponse(data.response);
+      setMessages([...messages, { sender: 'user', text: userInput }, { sender: 'agent', text: data.response }]);
     } catch (error) {
       console.error('Error:', error);
       setResponse('An error occurred while generating the response.');
@@ -57,6 +61,7 @@ function App() {
                 <Text>{response}</Text>
               </Box>
             )}
+            <Chat messages={messages} curAgentState={curAgentState} />
           </VStack>
         </Box>
         <Box as="footer" bg="teal.500" color="white" py={4} textAlign="center">
