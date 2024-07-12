@@ -1,27 +1,41 @@
 import React from "react";
 import ChatMessage from "./ChatMessage";
-import AgentState from "#/types/AgentState";
+import { Box, VStack } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-interface ChatProps {
-  messages: Message[];
-  curAgentState?: AgentState;
-}
+const AgentState = {
+  IDLE: "IDLE",
+  AWAITING_USER_CONFIRMATION: "AWAITING_USER_CONFIRMATION",
+  // Add other states as needed
+};
 
-function Chat({ messages, curAgentState }: ChatProps) {
+function Chat({ messages, curAgentState }) {
   return (
-    <div className="flex flex-col gap-3">
-      {messages.map((message, index) => (
-        <ChatMessage
-          key={index}
-          message={message}
-          isLastMessage={messages && index === messages.length - 1}
-          awaitingUserConfirmation={
-            curAgentState === AgentState.AWAITING_USER_CONFIRMATION
-          }
-        />
-      ))}
-    </div>
+    <Box>
+      <VStack spacing={4}>
+        {messages.map((message, index) => (
+          <ChatMessage
+            key={index}
+            message={message}
+            isLastMessage={messages && index === messages.length - 1}
+            awaitingUserConfirmation={
+              curAgentState === AgentState.AWAITING_USER_CONFIRMATION
+            }
+          />
+        ))}
+      </VStack>
+    </Box>
   );
 }
+
+Chat.propTypes = {
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      sender: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  curAgentState: PropTypes.oneOf(Object.values(AgentState)),
+};
 
 export default Chat;
