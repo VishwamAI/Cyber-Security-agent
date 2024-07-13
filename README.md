@@ -51,13 +51,43 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
+The Cybersecurity Agent is designed to autonomously learn and practice cybersecurity challenges across various platforms. It integrates data from the Exploit Database and simulates interactions with platforms like TryHackMe and picoCTF to enhance its knowledge and skills.
+
 ### Analyzing the Bundle Size
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
+- Fetches and categorizes exploit data from the Exploit Database.
+- Interactive learning and practice environment.
+- Integration with TryHackMe and picoCTF for practical challenges.
+- Documented learning process and solution verification using Google.
+
 ### Making a Progressive Web App
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/VishwamAI/Cyber-Security-agent.git
+   cd Cyber-Security-agent
+   ```
+
+2. **Install the required packages:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the backend server:**
+   ```bash
+   cd backend
+   node index.js
+   ```
+
+4. **Start the frontend server:**
+   ```bash
+   cd ../frontend
+   npm start
+   ```
 
 ### Advanced Configuration
 
@@ -66,6 +96,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+1. **Access the web application:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the frontend.
+
+2. **Fetch and process exploit data:**
+   The backend server will fetch and categorize exploit data from the Exploit Database and serve it at the `/exploits` endpoint.
+
+3. **Interact with the learning environment:**
+   Use the web application to simulate interactions with cybersecurity platforms and practice challenges.
 
 ### `npm run build` fails to minify
 
