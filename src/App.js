@@ -60,8 +60,8 @@ function App() {
             ))}
           </VStack>
           {currentChallenge && (
-            <Box mt={5}>
-              <Heading as="h3" size="lg">{currentChallenge.title} Challenge</Heading>
+            <Box mt={10}>
+              <Heading as="h2" size="lg">{currentChallenge.title} Challenge</Heading>
               <Text>{challengeContent}</Text>
             </Box>
           )}
