@@ -39,13 +39,35 @@ function App() {
     setCurrentChallenge(challenges[challengeKey]);
     console.log('Current challenge set to:', challenges[challengeKey]);
     try {
+      console.log(`Fetching data from: https://cyber-security-agent-5gzw9h0j.devinapps.com/exploits/${challengeKey}`);
       const response = await fetch(`https://cyber-security-agent-5gzw9h0j.devinapps.com/exploits/${challengeKey}`);
       const data = await response.json();
       console.log('Fetched data:', data);
-      setChallengeContent(data.content);
+      if (Array.isArray(data.content)) {
+        setChallengeContent(data.content);
+      } else {
+        setChallengeContent([data.content]);
+      }
+      console.log('Challenge content set to:', data.content);
     } catch (error) {
       console.error('Error fetching challenge content:', error);
       setChallengeContent('Failed to load challenge content.');
+    }
+  };
+
+  const renderChallengeContent = (content) => {
+    if (Array.isArray(content)) {
+      return content.map((item, index) => (
+        <Box key={index} p={2} borderWidth="1px" borderRadius="lg" mb={2}>
+          <Text><strong>Date:</strong> {item.date}</Text>
+          <Text><strong>Title:</strong> {item.title}</Text>
+          <Text><strong>Type:</strong> {item.type}</Text>
+          <Text><strong>Platform:</strong> {item.platform}</Text>
+          <Text><strong>Author:</strong> {item.author}</Text>
+        </Box>
+      ));
+    } else {
+      return <Text>{content}</Text>;
     }
   };
 
@@ -68,7 +90,7 @@ function App() {
           {currentChallenge && (
             <Box mt={10}>
               <Heading as="h2" size="lg">{currentChallenge.title} Challenge</Heading>
-              <Text>{challengeContent}</Text>
+              {renderChallengeContent(challengeContent)}
             </Box>
           )}
         </header>
