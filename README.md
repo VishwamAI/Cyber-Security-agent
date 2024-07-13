@@ -51,16 +51,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-The Cybersecurity Agent is designed to autonomously learn and practice cybersecurity challenges across various platforms. It integrates data from the Exploit Database and simulates interactions with platforms like TryHackMe and picoCTF to enhance its knowledge and skills.
-
 ### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-- Fetches and categorizes exploit data from the Exploit Database.
-- Interactive learning and practice environment.
-- Integration with TryHackMe and picoCTF for practical challenges.
-- Documented learning process and solution verification using Google.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
 ### Making a Progressive Web App
 
@@ -109,3 +102,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### Cybersecurity Agent Overview
+
+The Cybersecurity Agent is designed to autonomously learn and practice cybersecurity challenges across various platforms. It integrates data from the Exploit Database and simulates interactions with platforms like TryHackMe and picoCTF to enhance its knowledge and skills.
+
+- Fetches and categorizes exploit data from the Exploit Database.
+- Interactive learning and practice environment.
+- Integration with TryHackMe and picoCTF for practical challenges.
+- Documented learning process and solution verification using Google.
+- The development of the cybersecurity agent is complete, and it has been thoroughly tested to ensure its functionality and readiness for use.
