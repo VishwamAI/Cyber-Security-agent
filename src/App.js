@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChakraProvider, Box, Heading, Text, Button, VStack } from '@chakra-ui/react';
 import './App.css';
 
@@ -10,22 +10,27 @@ function App() {
     sqlInjection: {
       title: 'SQL Injection',
       description: 'Practice SQL Injection vulnerabilities.',
+      contentKey: 'sqlInjection'
     },
     xss: {
       title: 'Cross-Site Scripting (XSS)',
       description: 'Practice XSS vulnerabilities.',
+      contentKey: 'xss'
     },
     csrf: {
       title: 'Cross-Site Request Forgery (CSRF)',
       description: 'Practice CSRF vulnerabilities.',
+      contentKey: 'csrf'
     },
     rce: {
       title: 'Remote Code Execution (RCE)',
       description: 'Practice RCE vulnerabilities.',
+      contentKey: 'rce'
     },
     lfi: {
       title: 'Local File Inclusion (LFI)',
       description: 'Practice LFI vulnerabilities.',
+      contentKey: 'lfi'
     }
   };
 
