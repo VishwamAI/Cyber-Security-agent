@@ -30,7 +30,9 @@ function App() {
   };
 
   const handleStartChallenge = async (challengeKey) => {
+    console.log(`Starting challenge: ${challengeKey}`);
     setCurrentChallenge(challenges[challengeKey]);
+    console.log('Current challenge set to:', challenges[challengeKey]);
     try {
       const response = await fetch(`https://cyber-security-agent-5gzw9h0j.devinapps.com/exploits/${challengeKey}`);
       const data = await response.json();
@@ -70,4 +72,3 @@ function App() {
 }
 
 export default App;
-/* TODO: Add onClick event handlers for challenge buttons */
