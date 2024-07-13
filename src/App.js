@@ -41,6 +41,7 @@ function App() {
     try {
       const response = await fetch(`https://cyber-security-agent-5gzw9h0j.devinapps.com/exploits/${challengeKey}`);
       const data = await response.json();
+      console.log('Fetched data:', data);
       setChallengeContent(data.content);
     } catch (error) {
       console.error('Error fetching challenge content:', error);
