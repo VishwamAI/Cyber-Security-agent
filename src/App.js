@@ -6,10 +6,33 @@ function App() {
   const [currentChallenge, setCurrentChallenge] = useState(null);
   const [challengeContent, setChallengeContent] = useState('');
 
-  const handleStartChallenge = async (challenge) => {
-    setCurrentChallenge(challenge);
+  const challenges = {
+    sqlInjection: {
+      title: 'SQL Injection',
+      description: 'Practice SQL Injection vulnerabilities.',
+    },
+    xss: {
+      title: 'Cross-Site Scripting (XSS)',
+      description: 'Practice XSS vulnerabilities.',
+    },
+    csrf: {
+      title: 'Cross-Site Request Forgery (CSRF)',
+      description: 'Practice CSRF vulnerabilities.',
+    },
+    rce: {
+      title: 'Remote Code Execution (RCE)',
+      description: 'Practice RCE vulnerabilities.',
+    },
+    lfi: {
+      title: 'Local File Inclusion (LFI)',
+      description: 'Practice LFI vulnerabilities.',
+    }
+  };
+
+  const handleStartChallenge = async (challengeKey) => {
+    setCurrentChallenge(challenges[challengeKey]);
     try {
-      const response = await fetch(`https://cyber-security-agent-5gzw9h0j.devinapps.com/exploits/${challenge}`);
+      const response = await fetch(`https://cyber-security-agent-5gzw9h0j.devinapps.com/exploits/${challengeKey}`);
       const data = await response.json();
       setChallengeContent(data.content);
     } catch (error) {
@@ -26,35 +49,17 @@ function App() {
             Cybersecurity Challenges
           </Heading>
           <VStack spacing={4}>
-            <Box>
-              <Heading as="h2" size="md">SQL Injection</Heading>
-              <Text>Practice SQL Injection vulnerabilities.</Text>
-              <Button colorScheme="teal" mt={2} onClick={() => handleStartChallenge('sql-injection')}>Start Challenge</Button>
-            </Box>
-            <Box>
-              <Heading as="h2" size="md">Cross-Site Scripting (XSS)</Heading>
-              <Text>Practice XSS vulnerabilities.</Text>
-              <Button colorScheme="teal" mt={2} onClick={() => handleStartChallenge('xss')}>Start Challenge</Button>
-            </Box>
-            <Box>
-              <Heading as="h2" size="md">Cross-Site Request Forgery (CSRF)</Heading>
-              <Text>Practice CSRF vulnerabilities.</Text>
-              <Button colorScheme="teal" mt={2} onClick={() => handleStartChallenge('csrf')}>Start Challenge</Button>
-            </Box>
-            <Box>
-              <Heading as="h2" size="md">Remote Code Execution (RCE)</Heading>
-              <Text>Practice RCE vulnerabilities.</Text>
-              <Button colorScheme="teal" mt={2} onClick={() => handleStartChallenge('rce')}>Start Challenge</Button>
-            </Box>
-            <Box>
-              <Heading as="h2" size="md">Local File Inclusion (LFI)</Heading>
-              <Text>Practice LFI vulnerabilities.</Text>
-              <Button colorScheme="teal" mt={2} onClick={() => handleStartChallenge('lfi')}>Start Challenge</Button>
-            </Box>
+            {Object.keys(challenges).map((key) => (
+              <Box key={key}>
+                <Heading as="h2" size="md">{challenges[key].title}</Heading>
+                <Text>{challenges[key].description}</Text>
+                <Button colorScheme="teal" mt={2} onClick={() => handleStartChallenge(key)}>Start Challenge</Button>
+              </Box>
+            ))}
           </VStack>
           {currentChallenge && (
             <Box mt={5}>
-              <Heading as="h3" size="lg">{currentChallenge.replace('-', ' ').toUpperCase()} Challenge</Heading>
+              <Heading as="h3" size="lg">{currentChallenge.title} Challenge</Heading>
               <Text>{challengeContent}</Text>
             </Box>
           )}
@@ -65,3 +70,4 @@ function App() {
 }
 
 export default App;
+/* TODO: Add onClick event handlers for challenge buttons */
