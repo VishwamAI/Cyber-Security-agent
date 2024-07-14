@@ -76,12 +76,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
    node index.js
    ```
 
-4. **Start the frontend server:**
-   ```bash
-   cd ../frontend
-   npm start
-   ```
-
 ### Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
@@ -112,3 +106,4 @@ The Cybersecurity Agent is designed to autonomously learn and practice cybersecu
 - Integration with TryHackMe and picoCTF for practical challenges.
 - Documented learning process and solution verification using Google.
 - The development of the cybersecurity agent is complete, and it has been thoroughly tested to ensure its functionality and readiness for use.
+- The frontend component has been removed as per user request, and the backend is fully operational.
